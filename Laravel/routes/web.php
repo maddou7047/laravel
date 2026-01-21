@@ -7,6 +7,6 @@ Route::get('/', function () {
 });
 
 
-Route::get('/', function () {
+Route::get('Courses', function () {
     return view('Courses');
 });

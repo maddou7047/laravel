@@ -33,20 +33,16 @@ class Keuzedeel extends Model
 
 
     public function Enrollments(){
-        return $this->hasMany(Enrollment::class,'KeuzedeelID');
+        return $this->hasMany(Enrollment::class, 'KeuzdeelId');
     }
 
     public function IsFull(){
-        $MaxStudents = $this->MaxStudents;
-        $Count = $this->Enrollments()->count();
-        return $Count >= $MaxStudents;
+        return $this->Enrollments()->count() >= $this->MaxStudents;
     }
 
      public function IsBelowMinimum()
     {
-        $MinStudents = $this->MinStudents;
-        $Count = $this->Enrollments()->count();
-        return $Count < $MinStudents;
+        return $this->Enrollments()->count() < $this->MinStudents;
     }
 
     public function scopeActive($query)

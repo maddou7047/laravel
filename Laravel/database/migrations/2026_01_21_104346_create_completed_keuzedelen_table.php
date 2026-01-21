@@ -13,7 +13,14 @@ return new class extends Migration
     {
         Schema::create('completed_keuzedelen', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('UserId')->constrained('users')->onDelete('cascade'); 
+            $table->string('KeuzdeelCode',50);
+            $table->timestamp('CompletedAt')->nullable();
+            $table->timestamp('ImportedAt')->useCurrent();
             $table->timestamps();
+
+
+            $table->index(['UserId','KeuzdeelCode']);
         });
     }
 

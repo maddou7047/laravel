@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('enrollment_periods', function (Blueprint $table) {
             $table->id();
+            $table->string('Name');
+            $table->dateTime('StartDate');
+            $table->dateTime('EndDate');
+            $table->boolean('IsActive')->default(false);
             $table->timestamps();
         });
     }

@@ -8,9 +8,9 @@ class Keuzedeel extends Model
 {
     //
 
-    protected $table = 'keuzedeel';
+    protected $table = 'keuzedelen';
 
-    protected $filltable = [
+    protected $fillable = [
         'Code',
         'Name',
         'Description',
@@ -32,15 +32,17 @@ class Keuzedeel extends Model
     ];
 
 
-    public function Enrollments(){
+    public function Enrollments()
+    {
         return $this->hasMany(Enrollment::class, 'KeuzdeelId');
     }
 
-    public function IsFull(){
+    public function IsFull()
+    {
         return $this->Enrollments()->count() >= $this->MaxStudents;
     }
 
-     public function IsBelowMinimum()
+    public function IsBelowMinimum()
     {
         return $this->Enrollments()->count() < $this->MinStudents;
     }
@@ -49,5 +51,4 @@ class Keuzedeel extends Model
     {
         return $query->where('IsActive', true);
     }
-
 }

@@ -45,4 +45,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function Enrollments()
+    {
+        return $this->hasMany(Enrollment::class, 'UserId');
+    }
+
+    public function CompletedKeuzedelen()
+    {
+        return $this->hasMany(CompletedKeuzedeel::class, 'UserId');
+    }
+
+    public function HasCompleted($keuzdeelCode)
+    {
+        return $this->CompletedKeuzedelen()
+            ->where('KeuzdeelCode', $keuzdeelCode)
+            ->exists();
+    }
+
+    public function IsEnrolledInPeriod($periode)
+    {
+        return $this->Enrollments()
+            ->whereHas('Keuzedeel', function ($query) use ($periode) {
+                $query->where('Periode', $periode);
+            })
+            ->where('Status', 'enrolled')
+            ->exists();
+    }
 }

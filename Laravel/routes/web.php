@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\KeuzdeelController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,8 @@ Route::get('/register', function () {
     return view('register');
 });
 
+
+Route::get('/keuzedelen',[KeuzdeelController::class, 'Index'])->name('keuzedelen.index');
 
 
 require __DIR__.'/auth.php';

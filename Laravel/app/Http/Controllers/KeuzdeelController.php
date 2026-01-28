@@ -10,13 +10,60 @@ class KeuzdeelController extends Controller
 {
     //
 
-    public function Index(){
-        $Keuzedeel = Keuzedeel::where('IsActive',true) 
-        ->withcount('Enrollments')
-        ->orderBy('Name')
-        ->get() 
-        ;
+    public function index()
+    {
+        $keuzedelen = Keuzedeel::all();
+        return view('keuzedelen.index', compact('keuzedelen'));
+    }
 
-        return view('keuzedelen.index',compact('keuzedelen'));
+    public function create()
+    {
+        return view('keuzedelen.create');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'Code' => 'required|unique:keuzedelen|max:50',
+            'Name' => 'required|max:255',
+            'Description' => 'required',
+            'Periode' => 'required|integer|between:1,4',
+            'MaxStudents' => 'nullable|integer|min:1',
+        ], [
+            'Code.required' => 'Keuzedeelcode is verplicht',
+            'Code.unique' => 'Deze code bestaat al',
+            'Name.required' => 'Naam is verplicht',
+            'Description.required' => 'Beschrijving is verplicht',
+            'Periode.required' => 'Periode is verplicht',
+        ]);
+
+        $validated['IsActive'] = $request->has('IsActive');
+        $validated['MinStudents'] = 15;
+        $validated['IsRepeatable'] = false;
+        $validated['Content'] = $validated['Description'];
+
+        Keuzedeel::create($validated);
+
+        return redirect()->route('keuzedelen.index')
+            ->with('success', 'Keuzedeel succesvol aangemaakt!');
+    }
+
+    public function show(Keuzedeel $Keuzedeel)
+    {
+        return view('keuzedelen.show', compact('Keuzedeel'));
+    }
+
+    public function update(Request $request, Keuzedeel $keuzedeel)
+    {
+        $validated = $request->validate([
+            'Code' => 'required|max:50|unique:keuzedelen,Code,' . $keuzedeel->id,
+            'Name' => 'required|max:255',
+            'Description' => 'required',
+            'Periode' => 'required|integer|between:1,4',
+            'MaxStudents' => 'nullable|integer|min:1',
+
+        ]);
+
+        $validated['IsActive'] = $request->has('IsActive');
     }
 }

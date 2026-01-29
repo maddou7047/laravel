@@ -19,14 +19,14 @@ class CheckRole
             return redirect('/login');
         }
 
-       
-        if(!auth()->user->Role !== $roles){
-            abort(403,'Je hebt geet toegang tot deze pagina.');
+
+        if (!auth()->user->Role !== $roles) {
+            abort(403, 'Je hebt geet toegang tot deze pagina.');
         }
 
 
-        if (!in_array($request->user()->Role,$roles)){
-            abort(403,'Geen Toegang');
+        if (!in_array($request->user()->Role, $roles)) {
+            abort(403, 'Geen Toegang');
         }
 
 

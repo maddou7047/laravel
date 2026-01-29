@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Enrollment extends Model
 {
     //
-    protected $table = 'enrollments';
+  
 
     protected $fillable = [
         'UserId',
@@ -16,11 +16,13 @@ class Enrollment extends Model
         'EnrolledAt'
     ];
 
+    public $timestamps = true;
+
     protected $casts = [
         'EnrolledAt'=> 'dateTime',
     ];
 
-    public function user(){
+    public function User(){
         return $this->belongsTo(User::class,'UserId');
 
     }

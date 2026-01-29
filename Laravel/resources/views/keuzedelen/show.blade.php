@@ -1,4 +1,3 @@
-{{-- Enrollment Section (Students Only) --}}
 @auth
     @if(auth()->user()->Role === 'student')
         <div class="mt-8 border-t pt-6">

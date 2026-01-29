@@ -24,7 +24,26 @@ Route::get('/register', function () {
 });
 
 
-Route::get('/keuzedelen',[KeuzdeelController::class, 'Index'])->name('keuzedelen.index');
+Route::get('/keuzedelen', [KeuzdeelController::class, 'Index'])->name('keuzedelen.index');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    Route::get('/keuzedelen', [KeuzdeelController::class, 'index'])->name('keuzedelen.index');
+    Route::get('/keuzedelen/{keuzedeel}', [KeuzdeelController::class, 'show'])->name('keuzedelen.show');
+    Route::post('/keuzedelen/{keuzedeel}/enroll', [EnrollmentController::class, 'Store'])->name('enrollments.store');
+    Route::delete('/keuzedelen/{keuzedeel}/unenroll', [EnrollmentController::class, 'Destroy'])->name('enrollments.destroy');
+});
+
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::get('/keuzedelen:create', [KeuzdeelController::class, 'create'])->name('keuzedelen.store');
+    Route::post('/keuzedelen', [KeuzdeelController::class, 'store'])->name('keuzedelen.store');
+    Route::get('/keuzedelen/{keuzedeel}/edit', [KeuzdeelController::class, 'edit'])->name('keuzedelen.edit');
+    Route::put('/keuzedelen/{keuzedeel}', [KeuzdeelController::class, 'update'])->name('keuzedeel.update');
+    Route::delete('/keuzedelen/{keuzedeel}', [KeuzdeelController::class, 'destroy'])->name('keuzedelen.destroy');
+});
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

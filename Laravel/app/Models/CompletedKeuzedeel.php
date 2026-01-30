@@ -20,8 +20,8 @@ class CompletedKeuzedeel extends Model
 
 
     protected $casts = [
-        'CompletedAt'=>'dateTime',
-        'ImportedAt'=>'dateTime'
+        'CompletedAt'=>'datetime',
+        'ImportedAt'=>'datetime'
     ];
 
     public function User(){

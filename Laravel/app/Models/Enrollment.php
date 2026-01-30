@@ -19,7 +19,7 @@ class Enrollment extends Model
     public $timestamps = true;
 
     protected $casts = [
-        'EnrolledAt'=> 'dateTime',
+        'EnrolledAt'=> 'datetime',
     ];
 
     public function User(){

@@ -15,8 +15,8 @@ class EnrollmentPeriod extends Model
     ];
 
     protected $casts = [
-        'StartDate' => 'dateTime',
-        'EndDate' => 'dateTime',
+        'StartDate' => 'datetime',
+        'EndDate' => 'datetime',
         'IsActive' => 'boolean'
     ];
 

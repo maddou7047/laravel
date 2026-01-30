@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Enrollment;
+use App\Models\EnrollmentPeriod;
 use App\Models\Keuzedeel;
 use Illuminate\Http\Request;
 
@@ -63,9 +65,9 @@ class EnrollmentController extends Controller
     }
 
 
-    public function Destroy()
+    public function Destroy(Keuzedeel $keuzedeel)
     {
-        $user  = auth()->user();
+        $user = auth()->user();
 
 
         $enrollment = Enrollment::where('UserId', $user->id)

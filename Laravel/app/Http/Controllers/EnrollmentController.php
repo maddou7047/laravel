@@ -25,7 +25,7 @@ class EnrollmentController extends Controller
         }
 
         $existingEnrollment = Enrollment::where('UserId', $user->id)
-            ->where('Keuzdeel', $keuzedeel->id)
+            ->where('KeuzdeelId', $keuzedeel->id)
             ->exists();
 
 

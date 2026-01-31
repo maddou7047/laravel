@@ -25,7 +25,6 @@ Route::get('/register', function () {
 });
 
 
-Route::get('/keuzedelen', [KeuzdeelController::class, 'Index'])->name('keuzedelen.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
@@ -35,8 +34,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/keuzedelen', [KeuzdeelController::class, 'index'])->name('keuzedelen.index');
     Route::get('/keuzedelen/{keuzedeel}', [KeuzdeelController::class, 'show'])->name('keuzedelen.show');
 
-    Route::post('/keuzedelen/{keuzedeel}/enroll', [EnrollmentController::class, 'Store'])->name('enrollments.store');
-    Route::delete('/keuzedelen/{keuzedeel}/unenroll', [EnrollmentController::class, 'Destroy'])->name('enrollments.destroy');
+    Route::post('/keuzedelen/{keuzedeel}/enroll', [EnrollmentController::class, 'store'])->name('enrollments.store');
+    Route::delete('/keuzedelen/{keuzedeel}/unenroll', [EnrollmentController::class, 'destroy'])->name('enrollments.destroy');
 });
 
 Route::middleware(['auth', 'role:admin'])->group(function () {

@@ -7,13 +7,15 @@ use App\Models\Enrollment;
 use App\Models\EnrollmentPeriod;
 use App\Models\Keuzedeel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class EnrollmentController extends Controller
 {
     //
-    public function Store(Request $request, Keuzedeel $keuzedeel)
+    public function store(Request $request, Keuzedeel $keuzedeel)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $activePeriod = EnrollmentPeriod::where('IsActive', true)
             ->where('StartDate', '<=', now())
@@ -65,9 +67,9 @@ class EnrollmentController extends Controller
     }
 
 
-    public function Destroy(Keuzedeel $keuzedeel)
+    public function destroy(Keuzedeel $keuzedeel)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
 
         $enrollment = Enrollment::where('UserId', $user->id)

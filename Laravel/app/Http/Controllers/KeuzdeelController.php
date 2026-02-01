@@ -21,10 +21,10 @@ class KeuzdeelController extends Controller
         return view('keuzedelen.create');
     }
 
-    public function store(Request $request, Keuzedeel $Keuzedeel)
+    public function store(Request $request)
     {
         $validated = $request->validate([
-            'Code' => 'required|unique:keuzedelen,Code' . $Keuzedeel->id,
+            'Code' => 'required|unique:keuzedelen,Code',
             'Name' => 'required|max:255',
             'Description' => 'required',
             'Periode' => 'required|integer|between:1,4',
@@ -42,16 +42,15 @@ class KeuzdeelController extends Controller
         $validated['IsRepeatable'] = false;
         $validated['Content'] = $validated['Description'];
 
-        $Keuzedeel->update($validated);
         Keuzedeel::create($validated);
 
         return redirect()->route('keuzedelen.index')
             ->with('success', 'Keuzedeel succesvol aangemaakt!');
     }
 
-    public function show(Keuzedeel $Keuzedeel)
+    public function show(Keuzedeel $keuzedeel)
     {
-        return view('keuzedelen.show', compact('Keuzedeel'));
+        return view('keuzedelen.show', compact('keuzedeel'));
     }
 
     public function update(Request $request, Keuzedeel $keuzedeel)
@@ -62,10 +61,14 @@ class KeuzdeelController extends Controller
             'Description' => 'required',
             'Periode' => 'required|integer|between:1,4',
             'MaxStudents' => 'nullable|integer|min:1',
-
         ]);
 
         $validated['IsActive'] = $request->has('IsActive');
+
+        $keuzedeel->update($validated);
+
+        return redirect()->route('keuzedelen.show', $keuzedeel)
+            ->with('success', 'Keuzedeel bijgewerkt!');
     }
 
     public function destroy(Keuzedeel $keuzedeel)

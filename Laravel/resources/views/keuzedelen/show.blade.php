@@ -2,7 +2,6 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Back link --}}
             <a href="{{ route('keuzedelen.index') }}" class="inline-flex items-center text-sm text-blue-600 hover:underline mb-6">
                 <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -10,7 +9,6 @@
                 Terug naar overzicht
             </a>
 
-            {{-- Flash messages --}}
             @if(session('success'))
                 <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-6">
                     {{ session('success') }}
@@ -22,7 +20,6 @@
                 </div>
             @endif
 
-            {{-- Hero card: name, status badge, code --}}
             <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
                 <div class="bg-gradient-to-r from-blue-600 to-blue-700 px-8 py-6">
                     <div class="flex justify-between items-start">
@@ -40,13 +37,11 @@
 
                 <div class="p-8">
 
-                    {{-- Description + Content --}}
                     <p class="text-gray-600 text-base leading-relaxed mb-2">{{ $keuzedeel->Description }}</p>
                     @if($keuzedeel->Content && $keuzedeel->Content !== $keuzedeel->Description)
                         <p class="text-gray-500 text-sm leading-relaxed">{{ $keuzedeel->Content }}</p>
                     @endif
 
-                    {{-- Info row: periode, capacity, min students --}}
                     @php
                         $currentCount = $keuzedeel->Enrollments()->count();
                         $spotsLeft = $keuzedeel->MaxStudents - $currentCount;
@@ -76,7 +71,6 @@
                         </div>
                     </div>
 
-                    {{-- Student enrollment section --}}
                     @auth
                         @if(auth()->user()->Role === 'student')
                             <div class="mt-8 pt-8 border-t border-gray-200">
@@ -130,7 +124,6 @@
                             </div>
                         @endif
 
-                        {{-- Admin section --}}
                         @if(auth()->user()->Role === 'admin')
                             <div class="mt-8 pt-8 border-t border-gray-200">
                                 <div class="flex justify-between items-center mb-4">
